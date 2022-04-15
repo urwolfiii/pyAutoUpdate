@@ -14,16 +14,16 @@ class settings:  # this is the class that will be used to store the settings
         self.version = self.data["version"]
         return
 
-
-def get_update_info(
-    path: str = "auto_update.json",
-) -> None:  # Gets the version from the server and saves it to a file so it can be checked later. (This is done so the user doesn't have to wait for the update to be downloaded every time they run the program instead it will be downloaded once and then the user can just run the program again, in the install_update function, the version will be checked and if it is different it will download the update and replace the old one.)
+def get_config(path:str=auto_update.json"):
     global setting
     if not os.path.exists(path):
         raise FileNotFoundError(
             f"File {path} not found, try to create it or change the path"
         )
     setting = settings(path)
+
+def get_update_info() -> None:  # Gets the version from the server and saves it to a file so it can be checked later. (This is done so the user doesn't have to wait for the update to be downloaded every time they run the program instead it will be downloaded once and then the user can just run the program again, in the install_update function, the version will be checked and if it is different it will download the update and replace the old one.)
+    global setting
     url = f"{setting.server}:{setting.port}/get_update_info/"
     urlretrieve(url, "auto_update_version.txt")
     return
@@ -56,6 +56,7 @@ def full_update(
     path: str = "auto_update.json", start_command="py .\_main.py"
 ) -> None:  # This is the same as install_update + get_update_info just in one function it also starts a Program after updating.
     global setting
+    get_config(path)
     get_update_info(path)
     install_update()
     try:
