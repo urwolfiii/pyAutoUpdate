@@ -1,9 +1,6 @@
-import subprocess
-
 import flask
 
 app = flask.Flask(__name__)
-global port
 port = 123456
 
 
