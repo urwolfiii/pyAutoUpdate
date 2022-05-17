@@ -12,6 +12,7 @@ class settings:  # this is the class that will be used to store the settings
         self.server = self.data["server"]
         self.port = self.data["port"]
         self.version = self.data["version"]
+        self.tree = self.data["tree"]
         return
 
 
@@ -26,7 +27,7 @@ def get_config(path: str = "auto_update.json"):
 
 def get_update_info() -> None:  # Gets the version from the server and saves it to a file so it can be checked later. (This is done so the user doesn't have to wait for the update to be downloaded every time they run the program instead it will be downloaded once and then the user can just run the program again, in the install_update function, the version will be checked and if it is different it will download the update and replace the old one.)
     global setting
-    url = f"{setting.server}:{setting.port}/get_update_info/"
+    url = f"{setting.server}:{setting.port}/get_update_info/{setting.tree}"
     urlretrieve(url, "auto_update_version.txt")
     return
 
@@ -39,7 +40,7 @@ def install_update() -> None:  # Actual update, checks if the version installed 
             print(f"Update available, version: {new_version}")
         else:
             return
-    urlretrieve(f"{setting.server}:{setting.port}/install_update/", "update.zip")
+    urlretrieve(f"{setting.server}:{setting.port}/install_update/{setting.tree}", "update.zip")
     if not os.path.exists("temp"):
         os.mkdir("temp")
     with zipfile.ZipFile("update.zip") as z:

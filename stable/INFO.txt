@@ -1,0 +1,9 @@
+# How to make a update:
+#
+# Create auto_update_version.txt and write the Version in it
+#
+# create update.zip with all new or changed Files in it
+#
+# You don't need to restart the Server
+#
+# The Programm will restart on its own
