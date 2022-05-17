@@ -70,10 +70,12 @@ def install_update() -> None:  # Actual update, checks if the version installed 
 
 
 def full_update(
-    path: str = "auto_update.json", start_command="py .\_main.py", backup=True
+    path: str = "auto_update.json", start_command="py .\_main.py", backup=True, version="stable"
 ) -> None:  # This is the same as install_update + get_update_info just in one function it also starts a Program after updating.
     global settings
     get_config(path)
+    if version != "stable":
+        setting.tree = version
     get_update_info()
     install_update()
     try:
