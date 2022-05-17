@@ -32,6 +32,17 @@ def get_update_info() -> None:  # Gets the version from the server and saves it 
     return
 
 
+def backup_files() -> bool:
+    if not os.path.exists("./backup"):
+        os.makedirs("./backup")
+    try:
+        for i in os.listdir():
+            shutil.copy(i, "./backup")
+        return True
+    except PermissionError:
+        return False
+
+
 def install_update() -> None:  # Actual update, checks if the version installed is the newest version available if not it will download the newest version and unzip it so it can replace the old one.
     global setting
     with open("auto_update_version.txt", "r") as f:
@@ -40,7 +51,10 @@ def install_update() -> None:  # Actual update, checks if the version installed 
             print(f"Update available, version: {new_version}")
         else:
             return
-    urlretrieve(f"{setting.server}:{setting.port}/install_update/{setting.tree}", "update.zip")
+    backup_files()
+    urlretrieve(
+        f"{setting.server}:{setting.port}/install_update/{setting.tree}", "update.zip"
+    )
     if not os.path.exists("temp"):
         os.mkdir("temp")
     with zipfile.ZipFile("update.zip") as z:
@@ -56,9 +70,9 @@ def install_update() -> None:  # Actual update, checks if the version installed 
 
 
 def full_update(
-    path: str = "auto_update.json", start_command="py .\_main.py"
+    path: str = "auto_update.json", start_command="py .\_main.py", backup=True
 ) -> None:  # This is the same as install_update + get_update_info just in one function it also starts a Program after updating.
-    global setting
+    global settings
     get_config(path)
     get_update_info()
     install_update()
@@ -70,3 +84,6 @@ def full_update(
     except:
         pass
     return
+
+
+full_update()
