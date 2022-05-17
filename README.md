@@ -58,6 +58,4 @@ It downloads the .zip file from the Server and unzips it after that it moves eve
 This function combines all functions in the auto_update.py and runs a command at the end.
 The Command can be used to start the Updated Script.
 
-## There must always be a stable Branch.
-
 ## If there are any questions or isusse please ask them in the Issues Tab. Thank you!
