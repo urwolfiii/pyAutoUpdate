@@ -1,8 +1,10 @@
-import flask
-import os
+#!/usr/bin/env python3
+
+import flask, os
+
 
 app = flask.Flask(__name__)
-port = 123456
+PORT = 123456
 
 
 @app.route("/get_update_info/<version>")
@@ -21,4 +23,4 @@ def install_update(version: str = "stable"):
     return flask.send_file(f"./stable/update.zip")
 
 
-app.run(host="127.0.0.1", port=port)
+app.run(host="127.0.0.1", port=PORT)

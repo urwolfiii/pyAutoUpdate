@@ -1,8 +1,13 @@
+#!/usr/bin/env python3
+
+
+#start imports
 import json, os, zipfile, shutil
 from urllib.request import urlretrieve
-
+#end imports
+#globals
 global setting
-
+#end globals
 
 class settings:  # this is the class that will be used to store the settings
     def __init__(self, path) -> None:
