@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+#This is can be run as a standlalone script
 
 #start imports
 import json, os, zipfile, shutil
@@ -72,7 +73,6 @@ def install_update() -> None:  # Actual update, checks if the version installed 
         shutil.move(os.path.join(root, "temp", filename), os.path.join(root, filename))
     os.remove("update.zip")
     return
-
 
 def full_update(
     path: str = "auto_update.json", start_command="py .\_main.py", backup=True, version="stable"
