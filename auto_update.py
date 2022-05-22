@@ -92,5 +92,4 @@ def full_update(
         pass
     return
 
-
-full_update()
+#full_update()
